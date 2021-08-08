@@ -1,0 +1,2 @@
+# djOperat
+tworzenie dokumentacji
