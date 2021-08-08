@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<nav>
+    <a href="/" >dj Operat </a>  &nbsp
+    <a href="/zestawienie" > Zestawienie Robót </a> &nbsp
+    <a href="/generowanie" > Generowanie dokumentacji </a> &nbsp
+</nav>
+<BR>
+<main>
+    <div>Skład operatu technicznego: <BR>
+        wybierz z poniższej listy</div>
+    <ol>
+        <li>
+         <input type="checkbox" id="spis" name="spis" checked>
+        <label for="spis">Spis treści </label> <button type="button" form="nazwa_formularza" value="gen_spis" >Generuj Spis treści</buton>
+        </li>
+        <li>
+         <input type="checkbox" id="sprawozdanie" name="sprawozdanie" checked>
+        <label for="sprawozdanie">Sprawozdanie techniczne </label> <button type="button" form="nazwa_formularza" value="gen_spr">Generuj Sprawozdanie</button>
+        </li>
+        <li>
+         <input type="checkbox" id="pom_osn" name="pom_osn" >
+        <label for="pom_osn">Dane obserwacyjne z pomiaru osnowy pomiarowej wraz z wyrówaniem</label>
+        </li>
+        <li>
+         <input type="checkbox" id="szkic_osn" name="szkic_osn" >
+        <label for="szkic_osn">Szkic osnowy pomiarowej</label>
+        </li>
+        <li>
+         <input type="checkbox" id="wykaz_osn" name="wykaz_osn" >
+        <label for="wykaz_osn">Wykaz współrzędnych punktów osnowy pomiarowej</label>
+        </li>
+        <li>
+         <input type="checkbox" id="mpzt" name="mpzt" checked>
+        <label for="mpzt">Mapa porównania z terenem</label>
+        </li>
+        <li>
+         <input type="checkbox" id="szkic_pol" name="szkic_pol" checked>
+        <label for="szkic_pol">Szkice polowe wraz z wykazami współrzędnych punktów.</label>
+        </li>
+        <li>
+         <input type="checkbox" id="wykaz_bud" name="wykaz_bud" >
+        <label for="wykaz_bud">Wykaz zmian danych dotyczących budynku</label>
+       </li>
+    </ol>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% load static %}
+<h1>{{ Robota.idpracy }}</h1>
+
+<ol>
+<ul>Województwo: {{ Robota.wojew}}</ul>
+<ul>Powiat: {{ Robota.pow }}</ul>
+<ul>Jdn. ewidencyjna: {{ Robota.jew }}</ul>
+<ul>Obręb: {{Robota.obr}}</ul>
+<ul>Obiekt: {{Robota.obiekt}}</ul>
+<ul>Działki: {{Robota.dzialki}}</ul>
+<ul>Data operatu: {{Robota.data_operat|date:" Y-m-d"}}</ul>
+<ul>Powierzchnia: {{Robota.obszar}}</ul>
+<ul><a href="/{{Robota.id}}/edycja">Edytuj robotę</a></ul>
+<ul><a href="/{{Robota.id}}/dokumentacja">Generuj dokumentację dla {{ Robota.idpracy }}</a></ul>
+</ol>
+<a href="\"><h4>Powrót do strony głównej</h4></a>

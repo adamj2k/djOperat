@@ -1,0 +1,10 @@
+{% load static %}
+<section id="edycja">
+        <form action="" method="post"> <!--do poprawy action-->
+            {% csrf_token %}
+            <ul>
+                {{ form.as_ul }}
+            </ul>
+            <button type="submit" value="Submit">Wyślij</button>
+        </form>
+    </section>

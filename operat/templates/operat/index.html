@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dj Operat</title>
+    <link rel="stylesheet" href="{% static 'operat/styles/styles.css' %}"/>
+</head>
+<body>
+<nav>
+    <a href="/" >dj Operat </a>  &nbsp
+    <a href="/zestawienie" > Zestawienie Robót </a> &nbsp
+    <a href="/generowanie" > Generowanie dokumentacji </a> &nbsp
+</nav>
+<BR>
+<main>
+    <H3>Ostatnio dodane operaty:</H3>
+    {% if listaRobot %}
+        <table border: '1 pix solid black'>
+        <tr><th>ID pracy</th><th>powiat</th><th>obiekt</th>
+        </tr>
+        {% for lista in listaRobot %}
+            <tr>
+                <td><a href="/{{lista.id}}">{{ lista.idpracy }}</a></td>
+                <td>{{lista.powiat}}</td>
+                <td>{{lista.obiekt}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>Brak prac geodezyjnych.</p>
+    {% endif %}
+</main>
+</body>
+</html>
