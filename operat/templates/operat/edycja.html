@@ -1,6 +1,8 @@
 {% load static %}
+{{Robota.idpracy}}
+{{Robota.obiekt}}
 <section id="edycja">
-        <form action="{{Robota.id}}/edycja" method="post"> <!--do poprawy action-->
+        <form action="" method="post"> 
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}

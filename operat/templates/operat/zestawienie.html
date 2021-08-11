@@ -31,12 +31,21 @@
                 <td>{{lista.dzialki}}</td>
                 <td>{{lista.data_operat}}</td>
                 <td>{{lista.obszar}}</td>
+                <td><a href="/{{lista.id}}/edycja">Edytuj robotę</a></td>
+                <td><a href="/{{lista.id}}/usun">Usuń robotę</a></td>
             </tr>
         {% endfor %}
         </table>
         
     {% else %}
         <p>Brak prac geodezyjnych.</p>
+    {% endif %}
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
     {% endif %}
 </main>
 </body>

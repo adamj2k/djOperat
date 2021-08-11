@@ -4,6 +4,7 @@ from operat.models import Robota
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib import messages
 from .models import Robota
 from .forms import RobotaForm
 
@@ -35,8 +36,18 @@ def dokumentacja(request, idpracy):
 
 #dokumentacja - edycja
 def edycja(request, idpracy):
+    listaRobot = Robota.objects.order_by('data_operat')[:10]
     idPracy=get_object_or_404(Robota, pk=idpracy)
-    robotaForm=RobotaForm()
+    if request.method == 'POST':
+        robotaForm=RobotaForm(request.POST, instance=idPracy)
+        if robotaForm.is_valid():
+            robotaForm.save()
+            messages.success(request, 'Dane dotyczące roboty zostały zaktualizowane')
+            return render(request, 'operat/zestawienie.html', {
+                "listaRobot": listaRobot
+            })
+    else:
+        robotaForm=RobotaForm(instance=idPracy)
     return render(request, 'operat/edycja.html', {
         "Robota":idPracy,
         "form":robotaForm,
