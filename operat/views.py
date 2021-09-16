@@ -67,6 +67,12 @@ def nowa(request):
         "form":robotaForm,
           })
 
+#usunięcie roboty
+def usuniecie(request, idpracy):
+    robota=get_object_or_404(Robota, pk=idpracy)
+    robota.delete()
+    messages.success(request, 'Dane dotyczące roboty zostały zaktualizowane')
+    return redirect('zestawienie')
 
 # generowanie dokumentacji
 def generowanie(request):
