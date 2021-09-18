@@ -23,7 +23,7 @@ class Robota(models.Model):
 
   
 class Sprawozdanie(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE, null=True)
     zakresMat=models.TextField(default='Po analizie materiałów pozyskanych z PZGiK do...')
     techMet1=models.TextField(default='Wykonano porównanie... ')
     techMet2=models.TextField(default='Założono osnowę pomiarową ...')
@@ -40,25 +40,37 @@ class Sprawozdanie(models.Model):
 
 
 class MapaPorownania(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE)
     mpztPDF=models.FileField(upload_to='temp/')
+    def __str__(self):
+        return f'MPzT {self.idpracy}'
 
 class DaneObsOsnPom(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE, null=True)
     raport=models.TextField(default='Wynik wyrównania/raport z pomiaru GPS ...')
+    def __str__(self):
+        return f'Dane Obserwacyjne {self.idpracy}'
 
 class SzkicOsnowyPom(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE, null=True)
     szkicPDF=models.FileField(upload_to='temp/')
+    def __str__(self):
+        return f'Szkic Osnowy {self.idpracy}'
 
 class WykazWspOsn(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE, null=True)
     wykaz=models.TextField(default='Wykaz wsp')
+    def __str__(self):
+        return f'Wykaz wsp. osnowy {self.idpracy}'
 
 class SzkicPolowy(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE, null=True)
     szkicpolPDF=models.FileField(upload_to='temp/')
+    def __str__(self):
+        return f'Szkic polowy {self.idpracy}'
 
 class WykazWspPom(models.Model):
-    idpracy=models.ForeignKey(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE, null=True)
     wykazpom=models.TextField(default='Wykaz współrzędnych punktów pomierzonych ')
+    def __str__(self):
+        return f'Wykaz wsp. pomierzonych {self.idpracy}'

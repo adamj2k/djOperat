@@ -1,6 +1,6 @@
 {% load static %}
 <h1>{{ Robota.idpracy }}</h1>
-
+<h2>{{Robota.id}}</h2>
 <ol>
 <ul>Województwo: {{ Robota.wojew}}</ul>
 <ul>Powiat: {{ Robota.pow }}</ul>
@@ -8,9 +8,59 @@
 <ul>Obręb: {{Robota.obr}}</ul>
 <ul>Obiekt: {{Robota.obiekt}}</ul>
 <ul>Działki: {{Robota.dzialki}}</ul>
-<ul>Data operatu: {{Robota.data_operat|date:" Y-m-d"}}</ul>
+<ul>Data złożenia operatu: {{Robota.data_operat}}</ul>
+<ul>Data aktualności: {{Robota.data_aktu}}</ul>
+<ul>Data zgłoszenia: {{Robota.data_operat}}</ul>
 <ul>Powierzchnia: {{Robota.obszar}}</ul>
+<ul>Zmiana w zakresie BDOT500: {{Robota.zmianaBDOT}}</ul>
+<ul>Zmiana w zakresie GESUT: {{Robota.zmianaGESUT}}</ul>
+<ul>Zmiana w zakresie EGiB: {{Robota.zmianaEGIB}}</ul>
+<ul>Status pracy: {{Robota.status}}</ul>
 <ul><a href="/{{Robota.id}}/edycja">Edytuj robotę</a></ul>
 <ul><a href="/{{Robota.id}}/dokumentacja">Generuj dokumentację dla {{ Robota.idpracy }}</a></ul>
 </ol>
+<p>
+    Dane dotyczące sprawozdania technicznego:<BR>
+    II. Opis przebiegu i rezultatów wykonywanych prac geodezyjnych<BR>
+    1.	Zakres wykorzystania materiałów PZGiK <BR>
+    {{Robota.sprawozdanie.zakresMat}}<BR>
+    2. Zastosowane technologie i metody pomiarowe:<BR>
+    {{Robota.sprawozdanie.techMet1}}<BR>
+    {{Robota.sprawozdanie.techMet2}}<BR>
+    {{Robota.sprawozdanie.techMet3}}<BR>
+    {{Robota.sprawozdanie.techMet4}}<BR>
+    {{Robota.sprawozdanie.techMet5}}<BR>
+    {{Robota.sprawozdanie.zudpozwolenie}}<BR>
+    {{Robota.sprawozdanie.granice}}<BR>
+    {{Robota.sprawozdanie.dokZamawiajacy}}<BR>
+    3. Informacja dotycząca przekazywanej bazy roboczej.<BR>
+    {{Robota.sprawozdanie.zasilenie}}<BR>
+    4. Materiały do EGiB.
+    {{Robota.sprawozdanie.egibzmiany}}<BR>
+</p>
+<p>
+    <a href="{{Robota.mapaporownania.mpztPDF}}">Mapa porównania z terenem</a>
+</p>
+<p>
+    Dane obserwacyjne dotyczące osnowy pomiarowej<BR>
+    {{Robota.daneobsosnpom.raport}}
+</p>
+<p>
+    <a href="{{Robota.szkicosnowypom.szkicPDF}}">Szkic osnowy pomiarowej</a>
+</p>
+<p>
+    Wykaz współrzędnych osnowy<BR>
+    {{Robota.wykazwsposn.wykaz}}
+</p>
+<p>
+    <a href="{{Robota.szkicpolowy.szkicpolPDF}}">Szkic polowy</a>
+</p>
+<p>
+    Wykaz współrzędnych punktów pomierzonych<BR>
+    {{Robota.wykazwsppom.wykazpom}}<BR>
+</p>
+
+
+
+
 <a href="\"><h4>Powrót do strony głównej</h4></a>

@@ -1,3 +1,4 @@
+from django.db.models.fields.related import ForeignKey
 from django.http.response import HttpResponseRedirect
 from operat.forms import RobotaForm
 from operat.models import Robota
@@ -5,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from .models import Robota
+from .models import MapaPorownania, Robota, Sprawozdanie
 from .forms import RobotaForm
 
 # strona główna lista robót
@@ -26,13 +27,13 @@ def zestawienie(request):
 
 # szczegóły pracy
 def szczegoly(request, idpracy):
-    idPracy=get_object_or_404(Robota, pk=idpracy)
-    return render(request, 'operat/szczegoly.html', {"Robota":idPracy})
+    robota=get_object_or_404(Robota, pk=idpracy)
+    return render(request, 'operat/szczegoly.html', {"Robota":robota, })
 
 #dokumentacja - wybór dokumentu do edycji i generowania
 def dokumentacja(request, idpracy):
-    idPracy=get_object_or_404(Robota, pk=idpracy)
-    return render(request, 'operat/generowanie.html', {"Robota":idPracy})
+    robota=get_object_or_404(Robota, pk=idpracy)
+    return render(request, 'operat/generowanie.html', {"Robota":robota})
 
 #dokumentacja - edycja
 def edycja(request, idpracy):

@@ -14,16 +14,32 @@
 </nav>
 <BR>
 <main>
+    <ul><a href="/nowa">Dodaj nową robotę</a></ul>
     <H3>Ostatnio dodane operaty:</H3>
     {% if listaRobot %}
         <table border: '1 pix solid black'>
-        <tr><th>ID pracy</th><th>powiat</th><th>obiekt</th>
+        <tr><th>ID pracy</th><th>status</th><th>Woj.</th><th>powiat</th>
+        <th>jednostka ew.</th><th>obręb</th><th>obiekt</th><th>działki</th>
+        <th>Data aktual.</th><th>Data operatu</th><th>Data mat.</th><th>Obszar[ha]</th>
+        <th>zmiany BDOT500</th><th>zmiany GESUT</th><th>zmiany EGiB</th>
         </tr>
         {% for lista in listaRobot %}
             <tr>
                 <td><a href="/{{lista.id}}">{{ lista.idpracy }}</a></td>
+                <td>{{lista.status}}</td>
+                <td>{{lista.wojew}}</td>
                 <td>{{lista.powiat}}</td>
+                <td>{{lista.jew}}</td>
+                <td>{{lista.obr}}</td>
                 <td>{{lista.obiekt}}</td>
+                <td>{{lista.dzialki}}</td>
+                <td>{{lista.data_aktu}}</td>
+                <td>{{lista.data_operat}}</td>
+                <td>{{lista.data_mat}}</td>
+                <td>{{lista.obszar}}</td>
+                <td>{{lista.zmianaBDOT}}</td>
+                <td>{{lista.zmianaGESUT}}</td>
+                <td>{{lista.zmianaEGIB}}</td>
             </tr>
         {% endfor %}
         </table>
