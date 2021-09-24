@@ -12,5 +12,8 @@ urlpatterns = [
     path('<idpracy>/dokumentacja', views.dokumentacja, name="dokumentacja"),
     path('<idpracy>/usuniecie', views.usuniecie, name='usuniecie'),
     path('<idpracy>/', views.szczegoly, name="szczegoly"),
+    path('<idpracy>/edycjaspr',views.edycjaSprawozdanie, name='edycjaspr'),
+    path('<idpracy>/edycjampzt',views.edycjaMpzt, name='edycjampzt'),
+    path('<idpracy>/edycjadaneobs',views.edycjaDaneObs, name='edycjadaneobs'),
     #path('operat/<slug:idpracy>', views.szczegoly, name="slug szczegoly")
     ]

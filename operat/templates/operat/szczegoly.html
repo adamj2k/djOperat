@@ -1,6 +1,8 @@
 {% load static %}
 <h1>{{ Robota.idpracy }}</h1>
-<h2>{{Robota.id}}</h2>
+<a href="\"><h4>Powrót do strony głównej</a><BR>
+<a href="/{{Robota.id}}/dokumentacja">Generuj dokumentację dla {{ Robota.idpracy }}</a>
+<h4>DANE DOTYCZĄCE ROBOTY</h4>
 <ol>
 <ul>Województwo: {{ Robota.wojew}}</ul>
 <ul>Powiat: {{ Robota.pow }}</ul>
@@ -17,9 +19,10 @@
 <ul>Zmiana w zakresie EGiB: {{Robota.zmianaEGIB}}</ul>
 <ul>Status pracy: {{Robota.status}}</ul>
 <ul><a href="/{{Robota.id}}/edycja">Edytuj robotę</a></ul>
-<ul><a href="/{{Robota.id}}/dokumentacja">Generuj dokumentację dla {{ Robota.idpracy }}</a></ul>
 </ol>
+<h4>SPRAWOZDANIE</h4>
 <p>
+    <a href="/{{Robota.id}}/edycjaspr">Edytuj sprawozdanie</a><BR>
     Dane dotyczące sprawozdania technicznego:<BR>
     II. Opis przebiegu i rezultatów wykonywanych prac geodezyjnych<BR>
     1.	Zakres wykorzystania materiałów PZGiK <BR>
@@ -39,28 +42,33 @@
     {{Robota.sprawozdanie.egibzmiany}}<BR>
 </p>
 <p>
+    <h4>Mapa porównania z terenm</h4>
     <a href="{{Robota.mapaporownania.mpztPDF}}">Mapa porównania z terenem</a>
+    <a href="/{{Robota.id}}/edycjampzt">---Edytuj</a><BR>
 </p>
 <p>
-    Dane obserwacyjne dotyczące osnowy pomiarowej<BR>
+    <h4>Dane obserwacyjne dotyczące osnowy pomiarowej</h4>
+    <a href="/{{Robota.id}}/edycjadaneobs">Edytuj dokumentację</a><BR>
     {{Robota.daneobsosnpom.raport}}
 </p>
 <p>
+    <h4>Szkic osnowy pomiarowej</h4>
     <a href="{{Robota.szkicosnowypom.szkicPDF}}">Szkic osnowy pomiarowej</a>
+    <a href="/{{Robota.id}}/edycjaszkicosn">---Edytuj</a><BR>
 </p>
 <p>
-    Wykaz współrzędnych osnowy<BR>
+    <h4>Wykaz współrzędnych osnowy</h4>
+    <a href="/{{Robota.id}}/edycjawsposn">Edytuj wykaz</a><BR>
     {{Robota.wykazwsposn.wykaz}}
 </p>
 <p>
+    <h4>Szkic polowy</h4>
     <a href="{{Robota.szkicpolowy.szkicpolPDF}}">Szkic polowy</a>
+    <a href="/{{Robota.id}}/edycjaszkicpol">---Edytuj</a><BR>
 </p>
 <p>
-    Wykaz współrzędnych punktów pomierzonych<BR>
+    <h4>Wykaz współrzędnych punktów pomierzonych</h4>
+    <a href="/{{Robota.id}}/edycjawsppom">Edytuj wykaz</a><BR>
     {{Robota.wykazwsppom.wykazpom}}<BR>
 </p>
-
-
-
-
 <a href="\"><h4>Powrót do strony głównej</h4></a>

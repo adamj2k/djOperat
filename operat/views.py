@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from .models import MapaPorownania, Robota, Sprawozdanie
-from .forms import RobotaForm
+from .models import DaneObsOsnPom, MapaPorownania, Robota, Sprawozdanie
+from .forms import DaneObsOsnPomForm, MapaPorownaniaForm, RobotaForm, SprawozdanieForm
 
 # strona główna lista robót
 def index(request):
@@ -35,7 +35,7 @@ def dokumentacja(request, idpracy):
     robota=get_object_or_404(Robota, pk=idpracy)
     return render(request, 'operat/generowanie.html', {"Robota":robota})
 
-#dokumentacja - edycja
+#dokumentacja - edycja danych dotyczących roboty
 def edycja(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
     idPracy=get_object_or_404(Robota, pk=idpracy)
@@ -52,6 +52,67 @@ def edycja(request, idpracy):
     return render(request, 'operat/edycja.html', {
         "Robota":idPracy,
         "form":robotaForm,
+    })
+# edycja danych dotyczących sprawozdania
+def edycjaSprawozdanie(request, idpracy):
+    listaRobot = Robota.objects.order_by('data_operat')[:10]
+    robota=get_object_or_404(Robota, pk=idpracy)
+    spr=robota.sprawozdanie 
+    if request.method == 'POST':
+        sprawozdanieForm=SprawozdanieForm(request.POST, instance=spr)
+        if sprawozdanieForm.is_valid():
+            sprawozdanieForm.save()
+            messages.success(request, 'Dane dotyczące Sprawozdania zostały zaktualizowane')
+            return render(request, 'operat/zestawienie.html', {
+                "listaRobot": listaRobot
+            })
+    else:
+        sprawozdanieForm=SprawozdanieForm(instance=spr)
+    return render(request, 'operat/edycjaspr.html', {
+        "Robota":robota,
+        "form":sprawozdanieForm,
+    })
+# edycja danych dotyczących MPzT
+def edycjaMpzt(request, idpracy):
+    listaRobot = Robota.objects.order_by('data_operat')[:10]
+    robota=get_object_or_404(Robota, pk=idpracy)
+    mpzt=robota.mapaporownania
+    if request.method == 'POST':
+        mpztForm=MapaPorownaniaForm(request.POST, instance=mpzt)
+        if mpztForm.is_valid():
+            mpztForm.save()
+            messages.success(request, 'Dane dotyczące Mapy porównania zostały zaktualizowane')
+            return render(request, 'operat/zestawienie.html', {
+                "listaRobot": listaRobot
+            })
+    else:
+        mpztForm=MapaPorownaniaForm(instance=mpzt)
+    return render(request, 'operat/edycjaspr.html', {
+        "Robota":robota,
+        "form":mpztForm,
+    })
+# edycja danych dotyczących Danych obserwacyjnych osnowy pomiarowej
+def edycjaDaneObs(request, idpracy):
+    listaRobot = Robota.objects.order_by('data_operat')[:10]
+    robota=get_object_or_404(Robota, pk=idpracy)
+    try:
+        daneobs=robota.daneobsosnpom
+    except:
+        daneobs=DaneObsOsnPom()
+        daneobs.save()
+    if request.method == 'POST':
+        daneobsForm=DaneObsOsnPomForm(request.POST, instance=daneobs)
+        if daneobsForm.is_valid():
+            daneobsForm.save()
+            messages.success(request, 'Dane dotyczące Dane obserwacyjne osnowy zostały zaktualizowane')
+            return render(request, 'operat/zestawienie.html', {
+                "listaRobot": listaRobot
+            })
+    else:
+        daneobsForm=DaneObsOsnPomForm(instance=daneobs)
+    return render(request, 'operat/edycjaspr.html', {
+        "Robota":robota,
+        "form":daneobsForm,
     })
 
 #dokumentacja - wprowadzenie nowej pracy
