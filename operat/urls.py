@@ -1,9 +1,12 @@
+from django.conf.urls import url
 from django.http.response import HttpResponseRedirect
+from django.views.generic import RedirectView
 from django.urls import path
 
 from . import views
 
 urlpatterns = [
+    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
     path('', views.index, name='index'),
     path('zestawienie', views.zestawienie, name='zestawienie'),
     path('generowanie', views.generowanie, name='generowanie'),
