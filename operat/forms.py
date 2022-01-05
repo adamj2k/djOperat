@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields
-from .models import DaneObsOsnPom, Robota, Sprawozdanie, MapaPorownania
+from .models import DaneObsOsnPom, Robota, Sprawozdanie, MapaPorownania, WykazWspOsn, WykazWspPom
 
 class RobotaForm(forms.ModelForm):
     class Meta:
@@ -23,4 +23,14 @@ class DaneObsOsnPomForm(forms.ModelForm):
     class Meta:
         model=DaneObsOsnPom
         fields=['idpracy', 'raport']
-        
+
+class WykazWspOsnForm(forms.ModelForm):
+    class Meta:
+        model=WykazWspOsn
+        fields=['idpracy', 'wykaz']
+
+class WykazWspPomForm(forms.ModelForm):
+    class Meta:
+        model=WykazWspPom
+        fields=['idpracy', 'wykazpom']
+

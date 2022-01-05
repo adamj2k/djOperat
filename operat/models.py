@@ -40,7 +40,7 @@ class Sprawozdanie(models.Model):
 
 
 class MapaPorownania(models.Model):
-    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE)
+    idpracy=models.OneToOneField(Robota, on_delete=models.CASCADE,null=True)
     mpztPDF=models.FileField(upload_to='temp/')
     def __str__(self):
         return f'MPzT {self.idpracy}'
