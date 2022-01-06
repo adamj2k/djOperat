@@ -52,6 +52,7 @@ def edycja(request, idpracy):
         "Robota":idPracy,
         "form":robotaForm,
     })
+
 # edycja danych dotyczących sprawozdania
 def edycjaSprawozdanie(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
@@ -60,15 +61,14 @@ def edycjaSprawozdanie(request, idpracy):
         spr=robota.sprawozdanie
     except:
         spr=Sprawozdanie()
-        spr.save()
     if request.method == 'POST':
         sprawozdanieForm=SprawozdanieForm(request.POST, instance=spr)
         if sprawozdanieForm.is_valid():
             sprawozdanieForm.save()
             messages.success(request, 'Dane dotyczące Sprawozdania zostały zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
-                "listaRobot": listaRobot
-            })
+                "listaRobot": listaRobot                
+                })
     else:
         sprawozdanieForm=SprawozdanieForm(instance=spr)
     return render(request, 'operat/edycjaspr.html', {
@@ -83,9 +83,8 @@ def edycjaMpzt(request, idpracy):
         mpzt=robota.mapaporownania
     except:
         mpzt=MapaPorownania()
-        mpzt.save()
     if request.method == 'POST':
-        mpztForm=MapaPorownaniaForm(request.POST, instance=mpzt)
+        mpztForm=MapaPorownaniaForm(request.POST, request.FILES, instance=mpzt)
         if mpztForm.is_valid():
             mpztForm.save()
             messages.success(request, 'Dane dotyczące Mapy porównania zostały zaktualizowane')

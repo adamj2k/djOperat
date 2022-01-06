@@ -1,8 +1,8 @@
 {% load static %}
-{{Robota.sprawozdanie.idpracy}}
-{{Robota.sprawozdanie.obiekt}}
+Robota id -{{ Robota.sprawozdanie.idpracy }} <BR>
+Obiekt -{{ Robota.sprawozdanie.obszar }} <Br>
 <section id="edycjaspr">
-        <form action="" method="post"> 
+        <form action="" method="post" enctype="multipart/form-data"> 
             {% csrf_token %}
             <ul>
                 {{ form.as_ul }}

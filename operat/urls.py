@@ -1,8 +1,9 @@
 from django.conf.urls import url
+from django.conf import settings
 from django.http.response import HttpResponseRedirect
 from django.views.generic import RedirectView
 from django.urls import path
-
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -21,4 +22,4 @@ urlpatterns = [
     path('<idpracy>/edycjawsposn', views.edycjaWykazWspOsn, name='edycjawsposn'),
     path('<idpracy>/edycjawsppom', views.edycjaWykazWspPom, name='edycjawsppom'),
     #path('operat/<slug:idpracy>', views.szczegoly, name="slug szczegoly")
-    ]
+    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
