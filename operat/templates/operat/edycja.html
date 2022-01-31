@@ -1,4 +1,5 @@
-{% load static %}
+{% extends "base_layout.html" %}
+{% block content %}
 Robota id - {{Robota.idpracy}}<Br>
 Obiekt - {{Robota.obszar}}<Br>
 
@@ -11,3 +12,4 @@ Obiekt - {{Robota.obszar}}<Br>
             <button type="submit">Wyślij</button>
         </form>
     </section>
+{% endblock %}

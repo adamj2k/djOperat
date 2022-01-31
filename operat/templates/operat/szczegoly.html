@@ -1,4 +1,5 @@
-{% load static %}
+{% extends "base_layout.html" %}
+{% block content %}
 <h1>{{ Robota.idpracy }}</h1>
 <a href="\"><h4>Powrót do strony głównej</a><BR>
 <a href="/{{Robota.id}}/dokumentacja">Generuj dokumentację dla {{ Robota.idpracy }}</a>
@@ -42,7 +43,7 @@
     {{Robota.sprawozdanie.egibzmiany}}<BR>
 </p>
 <p>
-    <h4>Mapa porównania z terenm</h4>
+    <h4>Mapa porównania z terenem</h4>
     <a href="/{{Robota.mapaporownania.mpztPDF}}">Mapa porównania z terenem</a>
     <a href="/{{Robota.id}}/edycjampzt">---Edytuj</a><BR>
 </p>
@@ -53,7 +54,7 @@
 </p>
 <p>
     <h4>Szkic osnowy pomiarowej</h4>
-    <a href="{{Robota.szkicosnowypom.szkicPDF}}">Szkic osnowy pomiarowej</a>
+    <a href="/{{Robota.szkicosnowypom.szkicPDF}}">Szkic osnowy pomiarowej</a>
     <a href="/{{Robota.id}}/edycjaszkicosn">---Edytuj</a><BR>
 </p>
 <p>
@@ -63,7 +64,7 @@
 </p>
 <p>
     <h4>Szkic polowy</h4>
-    <a href="{{Robota.szkicpolowy.szkicpolPDF}}">Szkic polowy</a>
+    <a href="/{{Robota.szkicpolowy.szkicpolPDF}}">Szkic polowy</a>
     <a href="/{{Robota.id}}/edycjaszkicpol">---Edytuj</a><BR>
 </p>
 <p>
@@ -72,3 +73,4 @@
     {{Robota.wykazwsppom.wykazpom}}<BR>
 </p>
 <a href="\"><h4>Powrót do strony głównej</h4></a>
+{% endblock %}

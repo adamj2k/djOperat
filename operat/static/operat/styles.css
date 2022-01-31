@@ -10,7 +10,7 @@ th, td {
     padding: 7px;
   }
 nav {
-    border: 5px solid rgb(75, 104, 17);
+    border: 5px solid rgb(81, 114, 16);
     background-color: rgb(77, 114, 4);
 }
 a:link, a:visited {
@@ -27,7 +27,7 @@ a:hover, a:active {
 }
 
 h1, h2, h3, h4 {
-   
+    text-align: center;
     
 }
 ol {

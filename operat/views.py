@@ -1,12 +1,13 @@
 from django.db.models.fields.related import ForeignKey
+from django.db.models.query import RawQuerySet
 from django.http.response import HttpResponseRedirect
 from operat.models import Robota
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib import messages
-from .models import DaneObsOsnPom, MapaPorownania, Robota, Sprawozdanie, WykazWspOsn, WykazWspPom
-from .forms import DaneObsOsnPomForm, MapaPorownaniaForm, RobotaForm, SprawozdanieForm, WykazWspOsnForm, WykazWspPomForm
+from .models import DaneObsOsnPom, MapaPorownania, Robota, Sprawozdanie, SzkicOsnowyPom, SzkicPolowy, WykazWspOsn, WykazWspPom
+from .forms import DaneObsOsnPomForm, MapaPorownaniaForm, RobotaForm, SprawozdanieForm, SzkicPolowyForm, WykazWspOsnForm, WykazWspPomForm, SzkicOsnowyForm
 
 # strona główna lista robót
 def index(request):
@@ -75,6 +76,7 @@ def edycjaSprawozdanie(request, idpracy):
         "Robota":robota,
         "form":sprawozdanieForm,
     })
+
 # edycja danych dotyczących MPzT
 def edycjaMpzt(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
@@ -97,6 +99,7 @@ def edycjaMpzt(request, idpracy):
         "Robota":robota,
         "form":mpztForm,
     })    
+
 # edycja danych dotyczących Danych obserwacyjnych osnowy pomiarowej
 def edycjaDaneObs(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
@@ -105,7 +108,6 @@ def edycjaDaneObs(request, idpracy):
         daneobs=robota.daneobsosnpom
     except:
         daneobs=DaneObsOsnPom()
-        daneobs.save()
     if request.method == 'POST':
         daneobsForm=DaneObsOsnPomForm(request.POST, instance=daneobs)
         if daneobsForm.is_valid():
@@ -121,6 +123,29 @@ def edycjaDaneObs(request, idpracy):
         "form":daneobsForm,
     })
 
+# edycja danych dotyczących szkicu osnowy pomiarowej
+def edycjaSzkicOsnowyPom(request, idpracy):
+    listaRobot = Robota.objects.order_by('data_operat')[:10]
+    robota=get_object_or_404(Robota, pk=idpracy)
+    try:
+        szkicosnpom=robota.szkicosnowypom
+    except:
+        szkicosnpom=SzkicOsnowyPom()
+    if request.method == 'POST':
+        szkicosnpomForm=SzkicOsnowyForm(request.POST, request.FILES, instance=szkicosnpom)
+        if szkicosnpomForm.is_valid():
+            szkicosnpomForm.save()
+            messages.success(request, 'Dane dotyczące szkic osnowy pomiarowej zaktualizowane')
+            return render(request, 'operat/zestawienie.html', {
+                "listaRobot": listaRobot
+            })
+    else:
+        szkicosnpomForm=SzkicOsnowyForm(instance=szkicosnpom)
+    return render(request, 'operat/edycjaspr.html', {
+        "Robota" : robota,
+        "form": szkicosnpomForm,
+    })    
+
 # edycja danych dotyczących Współrzędnych osnowy
 def edycjaWykazWspOsn(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
@@ -129,7 +154,6 @@ def edycjaWykazWspOsn(request, idpracy):
         wykazwsposn=robota.wykazwsposn
     except:
         wykazwsposn=WykazWspOsn()
-        wykazwsposn.save()
     if request.method == 'POST':
         wykazwsposnForm=WykazWspOsnForm(request.POST, instance=wykazwsposn)
         if wykazwsposnForm.is_valid():
@@ -153,7 +177,6 @@ def edycjaWykazWspPom(request, idpracy):
         wykazwsppom=robota.wykazwsppom
     except:
         wykazwsppom=WykazWspPom()
-        wykazwsppom.save()
     if request.method == 'POST':
         wykazwsppomForm=WykazWspPomForm(request.POST, instance=wykazwsppom)
         if wykazwsppomForm.is_valid():
@@ -168,6 +191,30 @@ def edycjaWykazWspPom(request, idpracy):
         "Robota":robota,
         "form":wykazwsppomForm,
     })
+
+# edycja danych dotyczących szkicu polowego
+def edycjaSzkicPolowy(request, idpracy):
+    listaRobot = Robota.objects.order_by('data_operat')[:10]
+    robota=get_object_or_404(Robota, pk=idpracy)
+    try:
+        szkicpolowy=robota.szkicpolowy
+    except:
+        szkicpolowy=SzkicPolowy()
+    if request.method == 'POST':
+        szkicpolowyForm=SzkicPolowyForm(request.POST, request.FILES, instance=szkicpolowy)
+        if szkicpolowyForm.is_valid():
+            szkicpolowyForm.save()
+            messages.success(request, 'Dane dotyczące szkicu polowego zostały zaktualizowane')
+            return render(request, 'operat/zestawienie.html',{
+                "listaRobot": listaRobot
+            })
+    else:
+        szkicpolowyForm=SzkicPolowyForm(instance=szkicpolowy)
+    return render(request, 'operat/edycjaspr.html', {
+        "Robota" : robota,
+        "form" : szkicpolowyForm,
+    })
+
 
 #dokumentacja - wprowadzenie nowej pracy
 def nowa(request):

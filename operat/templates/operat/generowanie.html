@@ -1,15 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-</head>
-<body>
-<nav>
-    <a href="/" >dj Operat </a>  &nbsp
-    <a href="/zestawienie" > Zestawienie Robót </a> &nbsp
-    <a href="/generowanie" > Generowanie dokumentacji </a> &nbsp
-</nav>
+{% extends "base_layout.html" %}
+{% block content %}
 <BR>
 <main>
     <div>Skład operatu technicznego: <BR>
@@ -50,5 +40,4 @@
     </ol>
 
 </main>
-</body>
-</html>
+{% endblock %}
