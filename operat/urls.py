@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
+    #url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
     path('', views.index, name='index'),
     path('zestawienie', views.zestawienie, name='zestawienie'),
     path('generowanie', views.generowanie, name='generowanie'),
