@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.conf import settings
 from django.http.response import HttpResponseRedirect
 from django.views.generic import RedirectView
-from django.urls import include, re_path
+from django.urls import include, re_path, path
 from django.conf.urls.static import static
 from . import views
 
