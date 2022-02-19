@@ -1,4 +1,4 @@
-from django.conf.urls import url
+#from django.conf.urls import url
 from django.conf import settings
 from django.http.response import HttpResponseRedirect
 from django.views.generic import RedirectView
