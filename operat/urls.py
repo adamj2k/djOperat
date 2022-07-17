@@ -1,4 +1,4 @@
-from django.conf.urls import url
+#from django.conf.urls import url
 from django.conf import settings
 from django.http.response import HttpResponseRedirect
 from django.views.generic import RedirectView
@@ -9,7 +9,7 @@ from . import views
 app_name = 'operat'
 
 urlpatterns = [
-    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
+    #url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
     path('', views.index, name='index'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('zestawienie', views.zestawienie, name='zestawienie'),
