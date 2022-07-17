@@ -2,13 +2,16 @@ from django.conf.urls import url
 from django.conf import settings
 from django.http.response import HttpResponseRedirect
 from django.views.generic import RedirectView
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from . import views
+
+app_name = 'operat'
 
 urlpatterns = [
     url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
     path('', views.index, name='index'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('zestawienie', views.zestawienie, name='zestawienie'),
     path('generowanie', views.generowanie, name='generowanie'),
     path('nowa', views.nowa, name='nowa'),

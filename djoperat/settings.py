@@ -56,7 +56,7 @@ ROOT_URLCONF = 'djoperat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #MEDIA  in temp
 MEDIA_URL = '/temp/'
 MEDIA_ROOT = 'c:/Users/Adam/djoperat/djoperat/temp/'
+
+LOGIN_REDIRECT_URL = '/'

@@ -10,9 +10,11 @@ from .models import DaneObsOsnPom, MapaPorownania, Robota, Sprawozdanie, SzkicOs
 from .forms import DaneObsOsnPomForm, MapaPorownaniaForm, RobotaForm, SprawozdanieForm, SzkicPolowyForm, WykazWspOsnForm, WykazWspPomForm, SzkicOsnowyForm
 
 # strona główna lista robót
+
+
 def index(request):
-    listaRobot = Robota.objects.order_by('data_operat')[:5]
-    context={
+    listaRobot = Robota.objects.order_by('data_operat').all()
+    context = {
         "listaRobot": listaRobot,
     }
     return render(request, 'operat/index.html', context)
@@ -20,227 +22,257 @@ def index(request):
 # zestawienie robót
 def zestawienie(request):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    context={
+    context = {
         "listaRobot": listaRobot,
     }
     return render(request, 'operat/zestawienie.html', context)
 
 # szczegóły pracy
 def szczegoly(request, idpracy):
-    robota=get_object_or_404(Robota, pk=idpracy)
-    return render(request, 'operat/szczegoly.html', {"Robota":robota, })
+    robota = get_object_or_404(Robota, pk=idpracy)
+    return render(request, 'operat/szczegoly.html', {"Robota": robota, })
 
-#dokumentacja - wybór dokumentu do edycji i generowania
+# dokumentacja - wybór dokumentu do edycji i generowania
 def dokumentacja(request, idpracy):
-    robota=get_object_or_404(Robota, pk=idpracy)
-    return render(request, 'operat/generowanie.html', {"Robota":robota})
+    robota = get_object_or_404(Robota, pk=idpracy)
+    return render(request, 'operat/generowanie.html', {"Robota": robota})
 
-#dokumentacja - edycja danych dotyczących roboty
+
+# dokumentacja - edycja danych dotyczących roboty
 def edycja(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    idPracy=get_object_or_404(Robota, pk=idpracy)
+    idPracy = get_object_or_404(Robota, pk=idpracy)
     if request.method == 'POST':
-        robotaForm=RobotaForm(request.POST, instance=idPracy)
+        robotaForm = RobotaForm(request.POST, instance=idPracy)
         if robotaForm.is_valid():
             robotaForm.save()
-            messages.success(request, 'Dane dotyczące roboty zostały zaktualizowane')
+            messages.success(
+                request, 'Dane dotyczące roboty zostały zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        robotaForm=RobotaForm(instance=idPracy)
+        robotaForm = RobotaForm(instance=idPracy)
     return render(request, 'operat/edycja.html', {
-        "Robota":idPracy,
-        "form":robotaForm,
+        "Robota": idPracy,
+        "form": robotaForm,
     })
 
 # edycja danych dotyczących sprawozdania
+
+
 def edycjaSprawozdanie(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        spr=robota.sprawozdanie
+        spr = robota.sprawozdanie
     except:
-        spr=Sprawozdanie()
+        spr = Sprawozdanie()
     if request.method == 'POST':
-        sprawozdanieForm=SprawozdanieForm(request.POST, instance=spr)
+        sprawozdanieForm = SprawozdanieForm(request.POST, instance=spr)
         if sprawozdanieForm.is_valid():
             sprawozdanieForm.save()
-            messages.success(request, 'Dane dotyczące Sprawozdania zostały zaktualizowane')
+            messages.success(
+                request, 'Dane dotyczące Sprawozdania zostały zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
-                "listaRobot": listaRobot                
-                })
+                "listaRobot": listaRobot
+            })
     else:
-        sprawozdanieForm=SprawozdanieForm(instance=spr)
+        sprawozdanieForm = SprawozdanieForm(instance=spr)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota":robota,
-        "form":sprawozdanieForm,
+        "Robota": robota,
+        "form": sprawozdanieForm,
     })
 
 # edycja danych dotyczących MPzT
+
+
 def edycjaMpzt(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        mpzt=robota.mapaporownania
+        mpzt = robota.mapaporownania
     except:
-        mpzt=MapaPorownania()
+        mpzt = MapaPorownania()
     if request.method == 'POST':
-        mpztForm=MapaPorownaniaForm(request.POST, request.FILES, instance=mpzt)
+        mpztForm = MapaPorownaniaForm(
+            request.POST, request.FILES, instance=mpzt)
         if mpztForm.is_valid():
             mpztForm.save()
-            messages.success(request, 'Dane dotyczące Mapy porównania zostały zaktualizowane')
+            messages.success(
+                request, 'Dane dotyczące Mapy porównania zostały zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        mpztForm=MapaPorownaniaForm(instance=mpzt)
+        mpztForm = MapaPorownaniaForm(instance=mpzt)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota":robota,
-        "form":mpztForm,
-    })    
+        "Robota": robota,
+        "form": mpztForm,
+    })
 
 # edycja danych dotyczących Danych obserwacyjnych osnowy pomiarowej
+
+
 def edycjaDaneObs(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        daneobs=robota.daneobsosnpom
+        daneobs = robota.daneobsosnpom
     except:
-        daneobs=DaneObsOsnPom()
+        daneobs = DaneObsOsnPom()
     if request.method == 'POST':
-        daneobsForm=DaneObsOsnPomForm(request.POST, instance=daneobs)
+        daneobsForm = DaneObsOsnPomForm(request.POST, instance=daneobs)
         if daneobsForm.is_valid():
             daneobsForm.save()
-            messages.success(request, 'Dane dotyczące Dane obserwacyjne osnowy zostały zaktualizowane')
+            messages.success(
+                request, 'Dane dotyczące Dane obserwacyjne osnowy zostały zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        daneobsForm=DaneObsOsnPomForm(instance=daneobs)
+        daneobsForm = DaneObsOsnPomForm(instance=daneobs)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota":robota,
-        "form":daneobsForm,
+        "Robota": robota,
+        "form": daneobsForm,
     })
 
 # edycja danych dotyczących szkicu osnowy pomiarowej
+
+
 def edycjaSzkicOsnowyPom(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        szkicosnpom=robota.szkicosnowypom
+        szkicosnpom = robota.szkicosnowypom
     except:
-        szkicosnpom=SzkicOsnowyPom()
+        szkicosnpom = SzkicOsnowyPom()
     if request.method == 'POST':
-        szkicosnpomForm=SzkicOsnowyForm(request.POST, request.FILES, instance=szkicosnpom)
+        szkicosnpomForm = SzkicOsnowyForm(
+            request.POST, request.FILES, instance=szkicosnpom)
         if szkicosnpomForm.is_valid():
             szkicosnpomForm.save()
-            messages.success(request, 'Dane dotyczące szkic osnowy pomiarowej zaktualizowane')
+            messages.success(
+                request, 'Dane dotyczące szkic osnowy pomiarowej zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        szkicosnpomForm=SzkicOsnowyForm(instance=szkicosnpom)
+        szkicosnpomForm = SzkicOsnowyForm(instance=szkicosnpom)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota" : robota,
+        "Robota": robota,
         "form": szkicosnpomForm,
-    })    
+    })
 
 # edycja danych dotyczących Współrzędnych osnowy
+
+
 def edycjaWykazWspOsn(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        wykazwsposn=robota.wykazwsposn
+        wykazwsposn = robota.wykazwsposn
     except:
-        wykazwsposn=WykazWspOsn()
+        wykazwsposn = WykazWspOsn()
     if request.method == 'POST':
-        wykazwsposnForm=WykazWspOsnForm(request.POST, instance=wykazwsposn)
+        wykazwsposnForm = WykazWspOsnForm(request.POST, instance=wykazwsposn)
         if wykazwsposnForm.is_valid():
             wykazwsposnForm.save()
-            messages.success(request, 'Dane dotyczące Wykazu Współrzednych Osnowy zaktualizowane')
+            messages.success(
+                request, 'Dane dotyczące Wykazu Współrzednych Osnowy zaktualizowane')
             return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        wykazwsposnForm=WykazWspOsnForm(instance=wykazwsposn)
+        wykazwsposnForm = WykazWspOsnForm(instance=wykazwsposn)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota":robota,
-        "form":wykazwsposnForm,
+        "Robota": robota,
+        "form": wykazwsposnForm,
     })
 
 # edycja danych dotyczących współrzędnyc punktów pomierzonych
+
+
 def edycjaWykazWspPom(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        wykazwsppom=robota.wykazwsppom
+        wykazwsppom = robota.wykazwsppom
     except:
-        wykazwsppom=WykazWspPom()
+        wykazwsppom = WykazWspPom()
     if request.method == 'POST':
-        wykazwsppomForm=WykazWspPomForm(request.POST, instance=wykazwsppom)
+        wykazwsppomForm = WykazWspPomForm(request.POST, instance=wykazwsppom)
         if wykazwsppomForm.is_valid():
             wykazwsppomForm.save()
-            messages.success(request, 'Dane dotyczące wykazu współrzędnych punktów pomierzony zaktualizowano')
+            messages.success(
+                request, 'Dane dotyczące wykazu współrzędnych punktów pomierzony zaktualizowano')
             return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        wykazwsppomForm=WykazWspPomForm(instance=wykazwsppom)
+        wykazwsppomForm = WykazWspPomForm(instance=wykazwsppom)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota":robota,
-        "form":wykazwsppomForm,
+        "Robota": robota,
+        "form": wykazwsppomForm,
     })
 
 # edycja danych dotyczących szkicu polowego
+
+
 def edycjaSzkicPolowy(request, idpracy):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     try:
-        szkicpolowy=robota.szkicpolowy
+        szkicpolowy = robota.szkicpolowy
     except:
-        szkicpolowy=SzkicPolowy()
+        szkicpolowy = SzkicPolowy()
     if request.method == 'POST':
-        szkicpolowyForm=SzkicPolowyForm(request.POST, request.FILES, instance=szkicpolowy)
+        szkicpolowyForm = SzkicPolowyForm(
+            request.POST, request.FILES, instance=szkicpolowy)
         if szkicpolowyForm.is_valid():
             szkicpolowyForm.save()
-            messages.success(request, 'Dane dotyczące szkicu polowego zostały zaktualizowane')
-            return render(request, 'operat/zestawienie.html',{
+            messages.success(
+                request, 'Dane dotyczące szkicu polowego zostały zaktualizowane')
+            return render(request, 'operat/zestawienie.html', {
                 "listaRobot": listaRobot
             })
     else:
-        szkicpolowyForm=SzkicPolowyForm(instance=szkicpolowy)
+        szkicpolowyForm = SzkicPolowyForm(instance=szkicpolowy)
     return render(request, 'operat/edycjaspr.html', {
-        "Robota" : robota,
-        "form" : szkicpolowyForm,
+        "Robota": robota,
+        "form": szkicpolowyForm,
     })
 
 
-#dokumentacja - wprowadzenie nowej pracy
+# dokumentacja - wprowadzenie nowej pracy
 def nowa(request):
-    #robota_obiekt=get_object_or_404(Robota)
+    # robota_obiekt=get_object_or_404(Robota)
     if request.method == 'POST':
-        robotaForm=RobotaForm(request.POST)
+        robotaForm = RobotaForm(request.POST)
         if robotaForm.is_valid():
             robotaForm.save()
             return redirect('zestawienie')
     else:
-        robotaForm=RobotaForm()
+        robotaForm = RobotaForm()
     return render(request, 'operat/nowa.html', {
-        "form":robotaForm,
-          })
+        "form": robotaForm,
+    })
 
-#usunięcie roboty
+# usunięcie roboty
+
+
 def usuniecie(request, idpracy):
-    robota=get_object_or_404(Robota, pk=idpracy)
+    robota = get_object_or_404(Robota, pk=idpracy)
     robota.delete()
     messages.success(request, 'Dane dotyczące roboty zostały zaktualizowane')
     return redirect('zestawienie')
 
 # generowanie dokumentacji
+
+
 def generowanie(request):
     listaRobot = Robota.objects.order_by('data_operat')[:10]
-    context={
+    context = {
         "listaRobot": listaRobot,
     }
     return render(request, 'operat/generowanie.html', context)

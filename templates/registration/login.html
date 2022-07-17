@@ -1,0 +1,23 @@
+{% if form.errors %}
+    <p>Twoje hasło lub hasło jest niepoprawne. Spróbuj ponownie</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>Nie masz uprawnień do wyświetlenia tej strony</p>
+
+    {% else %}
+        <p>Proszę zaloguj się</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{form.username.label_tag}}
+    {{form.username}}
+
+    {{form.password.label_tag}}
+    {{form.password}}
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{next}}">
+</form>

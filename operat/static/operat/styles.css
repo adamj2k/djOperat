@@ -27,25 +27,6 @@ a:hover, a:active {
 }
 
 h1, h2, h3, h4 {
-    text-align: center;
-    
-}
-ol {
-    
-}
-
-ul {
-    
-}
-
-p {
-    
-}
-
-section {
-    
-}
-
-form {
+    text-align: left;
     
 }

@@ -2,7 +2,7 @@
 {% block content %}
 <BR>
 <main>
-    <ul><a href="/nowa">Dodaj nową robotę</a></ul>
+    <ul><a href="{% url 'operat:nowa' %}">Dodaj nową robotę</a></ul>
     <H3>Ostatnio dodane operaty:</H3>
     {% if listaRobot %}
         <table border: '1 pix solid black'>

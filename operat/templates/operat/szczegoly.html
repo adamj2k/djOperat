@@ -1,7 +1,7 @@
 {% extends "base_layout.html" %}
 {% block content %}
 <h1>{{ Robota.idpracy }}</h1>
-<a href="\"><h4>Powrót do strony głównej</a><BR>
+<a href="\">Powrót do strony głównej</a><BR>
 <a href="/{{Robota.id}}/dokumentacja">Generuj dokumentację dla {{ Robota.idpracy }}</a>
 <h4>DANE DOTYCZĄCE ROBOTY</h4>
 <ol>
@@ -72,5 +72,5 @@
     <a href="/{{Robota.id}}/edycjawsppom">Edytuj wykaz</a><BR>
     {{Robota.wykazwsppom.wykazpom}}<BR>
 </p>
-<a href="\"><h4>Powrót do strony głównej</h4></a>
+<a href="\">Powrót do strony głównej</a>
 {% endblock %}
